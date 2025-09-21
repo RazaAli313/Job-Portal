@@ -9,7 +9,10 @@ require('dotenv').config();
 const PORT=process.env.PORT || 5000;
 
 //import routes
-// const authRoutes=require('./routes/auth');
+const authRoutes = require('./routes/api/auth');
+const jobRoutes = require('./routes/api/jobs');
+const companyRoutes = require('./routes/api/companies');
+const applicationRoutes = require('./routes/api/applications');
 
 
 //db connection
@@ -22,11 +25,17 @@ mongoose.connect(MONGO_URI)
 });
 
 //middlewares
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 app.use(bodyParser.json());
 
 //routes middleware
-// app.use('/api/auth',authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/jobs', jobRoutes);
+app.use('/api/companies', companyRoutes);
+app.use('/api/applications', applicationRoutes);
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

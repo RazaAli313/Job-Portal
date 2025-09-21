@@ -1,0 +1,80 @@
+export const jobs = [
+  {
+    id: 1,
+    title: "Frontend Developer",
+    company: "TechCorp Inc.",
+    location: "San Francisco, CA",
+    type: "Full-time",
+    experience: "Mid-level",
+    salary: "$90,000 - $120,000",
+    posted: "2 days ago",
+    description: "We are looking for a skilled Frontend Developer to join our team. You will be responsible for building user interfaces using React and working closely with our design team.",
+    requirements: ["3+ years of React experience", "Knowledge of state management", "Familiarity with modern frontend tools"],
+    logo: "💼"
+  },
+  {
+    id: 2,
+    title: "UX Designer",
+    company: "DesignHub",
+    location: "Remote",
+    type: "Contract",
+    experience: "Senior",
+    salary: "$70 - $90 per hour",
+    posted: "1 week ago",
+    description: "Join our design team to create beautiful and intuitive user experiences for our clients across various industries.",
+    requirements: ["5+ years of UX design", "Portfolio demonstrating UX process", "Experience with Figma"],
+    logo: "🎨"
+  },
+  {
+    id: 3,
+    title: "Backend Engineer",
+    company: "DataSystems",
+    location: "New York, NY",
+    type: "Full-time",
+    experience: "Senior",
+    salary: "$130,000 - $160,000",
+    posted: "3 days ago",
+    description: "We need an experienced Backend Engineer to develop and maintain our server infrastructure and APIs.",
+    requirements: ["5+ years of Node.js/Python", "Database design experience", "API development"],
+    logo: "⚙️"
+  },
+  {
+    id: 4,
+    title: "DevOps Specialist",
+    company: "CloudSolutions",
+    location: "Austin, TX",
+    type: "Full-time",
+    experience: "Mid-level",
+    salary: "$110,000 - $140,000",
+    posted: "5 days ago",
+    description: "Help us build and maintain our cloud infrastructure and CI/CD pipelines.",
+    requirements: ["AWS/Azure experience", "Kubernetes knowledge", "CI/CD pipeline development"],
+    logo: "☁️"
+  },
+  {
+    id: 5,
+    title: "Product Manager",
+    company: "InnovateCo",
+    location: "Chicago, IL",
+    type: "Full-time",
+    experience: "Senior",
+    salary: "$120,000 - $150,000",
+    posted: "1 day ago",
+    description: "Lead our product development initiatives and work with cross-functional teams to deliver great products.",
+    requirements: ["5+ years product management", "Agile methodology experience", "Strong communication skills"],
+    logo: "📊"
+  },
+  {
+    id: 6,
+    title: "Data Scientist",
+    company: "AnalyticsPro",
+    location: "Remote",
+    type: "Full-time",
+    experience: "Mid-level",
+    salary: "$100,000 - $130,000",
+    posted: "4 days ago",
+    description: "Use your data analysis skills to derive insights and build predictive models for our business.",
+    requirements: ["Python/R programming", "Machine learning experience", "Statistical analysis background"],
+    logo: "📈"
+  }
+];
