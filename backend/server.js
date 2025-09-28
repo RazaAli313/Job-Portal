@@ -13,6 +13,7 @@ const authRoutes = require('./routes/api/auth');
 const jobRoutes = require('./routes/api/jobs');
 const companyRoutes = require('./routes/api/companies');
 const applicationRoutes = require('./routes/api/applications');
+const userRoutes = require('./routes/api/users');
 
 
 //db connection
@@ -31,11 +32,15 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 
+
 //routes middleware
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/companies', companyRoutes);
 app.use('/api/applications', applicationRoutes);
+app.use('/api/users', userRoutes);
+const chatRoutes = require('./routes/api/chat');
+app.use('/api/chat', chatRoutes);
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

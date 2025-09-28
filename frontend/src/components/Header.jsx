@@ -8,20 +8,50 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
 
+  const categories = [
+    'Engineering', 'Design', 'Marketing', 'Sales', 'Product', 'Finance', 'HR', 'Operations', 'Support', 'Other'
+  ];
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+
   return (
     <motion.header 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       className="bg-white shadow-sm py-4"
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
+  <div className="container mx-auto px-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <motion.div 
           whileHover={{ scale: 1.05 }}
           className="text-2xl font-bold text-indigo-600"
         >
           JobPortal
         </motion.div>
-        
+        {/* Categories and Search */}
+        <div className="flex flex-col md:flex-row md:items-center gap-2 w-full md:w-auto">
+          <div className="flex gap-2 flex-wrap md:flex-nowrap overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+            <button
+              className={`px-3 py-1 rounded-lg font-semibold transition-colors ${activeCategory === 'All' ? 'bg-indigo-600 text-white' : 'bg-white text-indigo-600 border border-indigo-200'}`}
+              onClick={() => setActiveCategory('All')}
+            >All</button>
+            {categories.map(cat => (
+              <button
+                key={cat}
+                className={`px-3 py-1 rounded-lg font-semibold transition-colors ${activeCategory === cat ? 'bg-indigo-600 text-white' : 'bg-white text-indigo-600 border border-indigo-200'}`}
+                onClick={() => setActiveCategory(cat)}
+              >{cat}</button>
+            ))}
+          </div>
+          <div className="w-full md:w-64">
+            <input
+              type="text"
+              className="px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring focus:border-indigo-400 w-full"
+              placeholder="Search jobs or companies..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
         <nav className="hidden md:flex space-x-8 items-center">
           <motion.div whileHover={{ scale: 1.05 }}>
             <Link to="/" className="text-gray-600 hover:text-indigo-600 transition-colors">Home</Link>
@@ -33,14 +63,14 @@ const Header = () => {
             <Link to="/companies" className="text-gray-600 hover:text-indigo-600 transition-colors">Companies</Link>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }}>
-            <Link to="/about" className="text-gray-600 hover:text-indigo-600 transition-colors">About</Link>
+            <Link to="/chat" className="text-gray-600 hover:text-indigo-600 transition-colors">Chat</Link>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }}>
-            <Link to="/contact" className="text-gray-600 hover:text-indigo-600 transition-colors">Contact</Link>
+            <Link to="/profile" className="text-gray-600 hover:text-indigo-600 transition-colors">Profile</Link>
           </motion.div>
         </nav>
 
-        <div className="hidden md:flex items-center space-x-4">
+  <div className="hidden md:flex items-center space-x-4">
           {!user ? (
             <>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -58,6 +88,12 @@ const Header = () => {
               <span className="px-2 text-gray-700 whitespace-nowrap">Hello, {user.name}</span>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link to="/dashboard" className="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">Dashboard</Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link to="/profile" className="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">Profile</Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link to="/chat" className="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">Chat</Link>
               </motion.div>
               <motion.button
                 whileHover={{ scale: 1.05 }}

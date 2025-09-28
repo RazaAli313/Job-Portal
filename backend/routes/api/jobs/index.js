@@ -14,4 +14,7 @@ router.get('/:id', auth, roles(['admin', 'employer', 'candidate']), jobControlle
 router.put('/:id', auth, roles(['employer', 'admin']), jobController.updateJob);
 router.delete('/:id', auth, roles(['employer', 'admin']), jobController.deleteJob);
 
+// Get jobs posted by the logged-in employer
+router.get('/my', auth, roles(['employer', 'admin']), jobController.getMyJobs);
+
 module.exports = router;

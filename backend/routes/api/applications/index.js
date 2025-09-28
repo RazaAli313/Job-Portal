@@ -14,4 +14,7 @@ router.get('/:id', auth, roles(['admin', 'employer', 'candidate']), applicationC
 router.put('/:id', auth, roles(['admin']), applicationController.updateApplication);
 router.delete('/:id', auth, roles(['admin']), applicationController.deleteApplication);
 
+// Get applications received for jobs posted by the logged-in employer
+router.get('/received', auth, roles(['employer', 'admin']), applicationController.getReceivedApplications);
+
 module.exports = router;
