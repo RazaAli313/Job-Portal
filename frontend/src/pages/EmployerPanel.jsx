@@ -26,7 +26,10 @@ const EmployerPanel = () => {
   const fetchCompanies = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:3000/api/companies', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.get('http://localhost:3000/api/companies'
+        
+        , { headers: { Authorization: `Bearer ${token}` } }
+        );
       setCompanies(res.data);
     } catch (err) {
       toast.error('Failed to fetch companies');
@@ -83,6 +86,7 @@ const EmployerPanel = () => {
     setLoading(true);
     try {
   const token = localStorage.getItem('token');
+  console.log("Token:", token);
   const res = await axios.get('http://localhost:3000/api/jobs/my', { headers: { Authorization: `Bearer ${token}` } });
       setJobs(res.data);
     } catch (err) {
@@ -111,9 +115,10 @@ const EmployerPanel = () => {
     }
     try {
       const token = localStorage.getItem('token');
+      console.log("Form Data: ", form);
       await axios.post('http://localhost:3000/api/jobs', form, { headers: { Authorization: `Bearer ${token}` } });
       toast.success('Job posted successfully!');
-      setForm({ title: '', description: '', location: '', company: '' });
+      setForm({ title: '', description: '', location: '', company: '',salary:'',experience:'',type:'' });
       fetchJobs();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to post job');
@@ -164,6 +169,39 @@ const EmployerPanel = () => {
             onChange={e => setForm({ ...form, description: e.target.value })}
             required
           />
+          <input
+            type="text"
+            placeholder="Salary"
+            className="border p-2 rounded w-full"
+            value={form.salary}
+            onChange={e => setForm({ ...form, salary: e.target.value })}
+            required
+          />
+         <select
+            className="border p-2 rounded w-full"
+            value={form.experience}
+            onChange={e => setForm({ ...form, experience: e.target.value })}
+            required
+          >
+            <option value="">Select Experience Level</option>
+            <option value="entry">Entry</option>
+            <option value="mid">Mid</option>
+            <option value="senior">Senior</option>
+            <option value="executive">Executive</option>
+         </select>
+         <select
+            className="border p-2 rounded w-full"
+            value={form.type}
+            onChange={e => setForm({ ...form, type: e.target.value })}
+            required
+          >
+            <option value="">Select Job Type</option>
+            <option value="full-time">Full-time</option>
+            <option value="part-time">Part-time</option>
+            <option value="contract">Contract</option>
+            <option value="internship">Internship</option>
+            <option value="remote">Remote</option>
+          </select>
           <select
             className="border p-2 rounded w-full"
             value={form.company}

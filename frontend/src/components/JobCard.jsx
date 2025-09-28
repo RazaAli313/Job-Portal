@@ -23,9 +23,11 @@ const JobCard = ({ job, onSelect, viewMode = 'grid' }) => {
 
   const getExperienceColor = (exp) => {
     if (!exp) return 'bg-blue-100 text-blue-800';
-    if (exp.includes('Senior') || exp.includes('Lead')) return 'bg-red-100 text-red-800';
-    if (exp.includes('Mid')) return 'bg-orange-100 text-orange-800';
-    if (exp.includes('Junior') || exp.includes('Entry')) return 'bg-green-100 text-green-800';
+    exp=exp.toLowerCase();
+    console.log("Experience; ",exp);
+    if (exp.includes('senior') || exp.includes('lead')) return 'bg-red-100 text-red-800';
+    if (exp.includes('mid')) return 'bg-orange-100 text-orange-800';
+    if (exp.includes('junior') || exp.includes('entry')) return 'bg-green-100 text-green-800';
     return 'bg-blue-100 text-blue-800';
   };
 

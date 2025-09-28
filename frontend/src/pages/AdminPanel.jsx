@@ -24,11 +24,11 @@ const AdminPanel = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
+      // const token = localStorage.getItem('token');
       const res = await axios.get('http://localhost:3000/api/users', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
       });
       setUsers(Array.isArray(res.data) ? res.data : []);
       toast.success('Users loaded successfully!');

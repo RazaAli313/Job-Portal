@@ -61,13 +61,13 @@ const App = () => {
                     setFilters={setFilters}
                   />
                 </ErrorBoundary>
-                <JobCategories />
                 <ErrorBoundary>
                   <JobListings 
                     searchTerm={searchTerm}
                     filters={filters}
                   />
                 </ErrorBoundary>
+                <JobCategories />
               </div>
               <Footer />
             </>
@@ -92,6 +92,11 @@ const App = () => {
           <Route path="/candidate" element={
             <ProtectedRoute roles={['candidate']}>
               <CandidatePanel />
+            </ProtectedRoute>
+          } />
+          <Route path="/chat" element={
+            <ProtectedRoute roles={['employer','candidate']}>
+              <Chat />
             </ProtectedRoute>
           } />
           <Route path="/job/:id" element={<JobDetails />} />

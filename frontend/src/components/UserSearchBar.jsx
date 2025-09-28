@@ -15,9 +15,9 @@ const UserSearchBar = ({ onUserSelect }) => {
     setLoading(true);
     setError('');
     try {
-      const token = localStorage.getItem('token');
+      // const token = localStorage.getItem('token');
       const res = await axios.get(`http://localhost:3000/api/users?search=${query}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        // { headers: { Authorization: `Bearer ${token}` } }
       );
       setResults(res.data);
     } catch (err) {

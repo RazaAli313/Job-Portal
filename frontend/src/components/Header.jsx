@@ -28,7 +28,7 @@ const Header = () => {
           JobPortal
         </motion.div>
         {/* Categories and Search */}
-        <div className="flex flex-col md:flex-row md:items-center gap-2 w-full md:w-auto">
+        {/* <div className="flex flex-col md:flex-row md:items-center gap-2 w-full md:w-auto">
           <div className="flex gap-2 flex-wrap md:flex-nowrap overflow-x-auto md:overflow-visible pb-2 md:pb-0">
             <button
               className={`px-3 py-1 rounded-lg font-semibold transition-colors ${activeCategory === 'All' ? 'bg-indigo-600 text-white' : 'bg-white text-indigo-600 border border-indigo-200'}`}
@@ -51,7 +51,7 @@ const Header = () => {
               onChange={e => setSearchTerm(e.target.value)}
             />
           </div>
-        </div>
+        </div> */}
         <nav className="hidden md:flex space-x-8 items-center">
           <motion.div whileHover={{ scale: 1.05 }}>
             <Link to="/" className="text-gray-600 hover:text-indigo-600 transition-colors">Home</Link>
@@ -62,12 +62,12 @@ const Header = () => {
           <motion.div whileHover={{ scale: 1.05 }}>
             <Link to="/companies" className="text-gray-600 hover:text-indigo-600 transition-colors">Companies</Link>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.05 }}>
+          {/* <motion.div whileHover={{ scale: 1.05 }}>
             <Link to="/chat" className="text-gray-600 hover:text-indigo-600 transition-colors">Chat</Link>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.05 }}>
+          </motion.div> */}
+          {/* <motion.div whileHover={{ scale: 1.05 }}>
             <Link to="/profile" className="text-gray-600 hover:text-indigo-600 transition-colors">Profile</Link>
-          </motion.div>
+          </motion.div> */}
         </nav>
 
   <div className="hidden md:flex items-center space-x-4">

@@ -1,11 +1,27 @@
 // components/SearchFilters.js
 import React from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+
 
 const SearchFilters = ({ searchTerm, setSearchTerm, filters, setFilters }) => {
+  const [locations, setLocations] = React.useState([]);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios.get('http://localhost:3000/api/locations', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => setLocations(res.data))
+      .catch(err => {
+        console.error('Error fetching locations:', err);
+        setLocations([]);
+      });
+  }, []);
+
   const filterOptions = {
     type: ['Full-time', 'Part-time', 'Contract', 'Internship', 'Remote'],
-    location: ['New York', 'San Francisco', 'London', 'Berlin', 'Remote'],
+    location: locations,
     experience: ['Entry', 'Mid', 'Senior', 'Executive']
   };
 
@@ -15,7 +31,7 @@ const SearchFilters = ({ searchTerm, setSearchTerm, filters, setFilters }) => {
       [filterType]: value
     }));
   };
-
+  console.log("Filters in SearchFilters: ",filterOptions['type']);
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -58,7 +74,7 @@ const SearchFilters = ({ searchTerm, setSearchTerm, filters, setFilters }) => {
             >
               <option value="">All {filterType}s</option>
               {filterOptions[filterType].map(option => (
-                <option key={option} value={option}>{option}</option>
+                <option key={option} value={option.toLowerCase()}>{option}</option>
               ))}
             </select>
           </div>

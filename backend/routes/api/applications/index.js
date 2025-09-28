@@ -5,6 +5,7 @@ const applicationController = require('../../../controllers/applicationControlle
 const auth = require('../../../middleware/auth');
 const roles = require('../../../middleware/roles');
 
+router.get('/received', auth, roles(['employer', 'admin']), applicationController.getReceivedApplications);
 // Only candidate and admin can create applications
 router.post('/', auth, roles(['candidate', 'admin']), applicationController.createApplication);
 // All authenticated users can view applications
@@ -15,6 +16,5 @@ router.put('/:id', auth, roles(['admin']), applicationController.updateApplicati
 router.delete('/:id', auth, roles(['admin']), applicationController.deleteApplication);
 
 // Get applications received for jobs posted by the logged-in employer
-router.get('/received', auth, roles(['employer', 'admin']), applicationController.getReceivedApplications);
 
 module.exports = router;
