@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { io } from 'socket.io-client';
+
+// Singleton socket instance
+let socket;
+if (!window._jobPortalSocket) {
+  window._jobPortalSocket = io('http://localhost:3000', { autoConnect: true });
+  window._jobPortalSocket.on('connect', () => console.log('[Socket] Connected:', window._jobPortalSocket.id));
+  window._jobPortalSocket.on('disconnect', () => console.log('[Socket] Disconnected:', window._jobPortalSocket.id));
+}
+socket = window._jobPortalSocket;
 
 const ChatModal = ({ chatId, participant, onClose }) => {
   const [messages, setMessages] = useState([]);
@@ -8,12 +18,28 @@ const ChatModal = ({ chatId, participant, onClose }) => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (chatId) fetchMessages();
+    if (chatId) {
+      fetchMessages();
+      console.log('[Socket] Joining chat room:', chatId);
+      socket.emit('joinChat', chatId);
+    }
+    // Listen for real-time messages
+    const handleReceive = (message) => {
+      console.log('[Socket] Received message:', message);
+      setMessages(prev => [...prev, message]);
+    };
+    socket.on('receiveMessage', handleReceive);
+    return () => {
+      socket.off('receiveMessage', handleReceive);
+    };
   }, [chatId]);
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get(`/api/chat/${chatId}`);
+      const token = localStorage.getItem('token');
+      const res = await axios.get(`http://localhost:3000/api/chat/${chatId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       setMessages(res.data.messages);
     } catch (err) {
       toast.error('Failed to load messages');
@@ -24,9 +50,22 @@ const ChatModal = ({ chatId, participant, onClose }) => {
     e.preventDefault();
     if (!input.trim()) return;
     try {
-      await axios.post('/api/chat/message', { chatId, text: input });
+      const token = localStorage.getItem('token');
+      await axios.post('http://localhost:3000/api/chat/message', { chatId, text: input },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+     
+      console.log('[Socket] Sending message:', input, 'to chat:', chatId);
+      socket.emit('sendMessage', {
+        chatId,
+        message: {
+          sender: localStorage.getItem('userId'),
+          text: input,
+          timestamp: new Date().toISOString()
+        }
+      });
       setInput('');
-      fetchMessages();
+   
     } catch (err) {
       toast.error('Failed to send message');
     }

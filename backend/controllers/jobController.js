@@ -1,4 +1,4 @@
-// Get jobs posted by the logged-in employer
+
 exports.getMyJobs = async (req, res) => {
   try {
     console.log('getMyJobs: req.user:', req.user);

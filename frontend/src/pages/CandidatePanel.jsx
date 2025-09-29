@@ -37,19 +37,19 @@ const CandidatePanel = () => {
       }
     };
     fetchJobs();
-    fetchApplications();
+    // fetchApplications();
   }, []);
 
   // Fetch candidate's applications
-  const fetchApplications = async () => {
-    try {
-  const token = localStorage.getItem('token');
-  const res = await axios.get('http://localhost:3000/api/applications/my', { headers: { Authorization: `Bearer ${token}` } });
-      setApplications(res.data);
-    } catch (err) {
-      toast.error('Failed to fetch applications');
-    }
-  };
+  // const fetchApplications = async () => {
+  //   try {
+  // const token = localStorage.getItem('token');
+  // const res = await axios.get('http://localhost:3000/api/applications/my', { headers: { Authorization: `Bearer ${token}` } });
+  //     setApplications(res.data);
+  //   } catch (err) {
+  //     toast.error('Failed to fetch applications');
+  //   }
+  // };
 
   // Apply for a job
   const handleApply = async (jobId) => {
@@ -57,7 +57,7 @@ const CandidatePanel = () => {
       const token = localStorage.getItem('token');
       await axios.post('http://localhost:3000/api/applications', { job: jobId }, { headers: { Authorization: `Bearer ${token}` } });
       toast.success('Applied successfully!');
-      fetchApplications();
+      // fetchApplications();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to apply');
     }
@@ -91,7 +91,7 @@ const CandidatePanel = () => {
                     {job.employer && (
                       <button
                         className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
-                        onClick={() => handleStartChat(job.employer._id)}
+                        onClick={() => handleStartChat(job.employer._id || job.employer)}
                       >
                         Chat
                       </button>

@@ -22,12 +22,13 @@ const Profile = () => {
     experience: '',
     password: ''
   });
-  const [editing, setEditing] = useState(false);
+
+  const [editing, setEditing] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (id && id !== user?._id) {
+  if (id && id !== user?._id && id !== 'undefined') {
       // Fetch other user's profile
       const fetchUser = async () => {
         setLoading(true);
@@ -88,7 +89,7 @@ const Profile = () => {
         const imageUrl = res.data.secure_url;
         setForm({ ...form, image: imageUrl });
         
-        // Auto-save image to backend when uploaded
+     
         if (isOwnProfile) {
           try {
             const token = localStorage.getItem("token");

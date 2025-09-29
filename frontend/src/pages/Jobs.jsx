@@ -19,6 +19,9 @@ const Jobs = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const [locationFilter, setLocationFilter] = useState('');
+  // Get unique locations from jobs
+  const availableLocations = Array.from(new Set(jobs.map(job => job.location).filter(Boolean)));
   const [comments, setComments] = useState({});
   const [showChat, setShowChat] = useState(false);
 
@@ -42,9 +45,10 @@ const Jobs = () => {
   // Filter jobs by category and search
   const filteredJobs = jobs.filter(job => {
     // const matchesCategory = activeCategory === 'All' || job.category === activeCategory;
-    const matchesCategory = activeCategory === 'All' || job.category === activeCategory;
-    const matchesSearch = searchTerm === '' || job.title.toLowerCase().includes(searchTerm.toLowerCase()) || job.company?.name?.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
+  const matchesCategory = activeCategory === 'All' || job.category === activeCategory;
+  const matchesSearch = searchTerm === '' || job.title.toLowerCase().includes(searchTerm.toLowerCase()) || job.company?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+  const matchesLocation = locationFilter === '' || (job.location && job.location.toLowerCase().includes(locationFilter.toLowerCase()));
+  return matchesCategory && matchesSearch && matchesLocation;
   });
 
   // Handle job selection for modal
@@ -78,7 +82,7 @@ const Jobs = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 py-12">
       <div className="container mx-auto px-4">
-        {/* User Search Bar */}
+ 
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-2 text-indigo-700">Search Users</h2>
           <UserSearchBar onUserSelect={handleUserSelect} />
@@ -109,6 +113,16 @@ const Jobs = () => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
+          <select
+            className="px-4 py-2 rounded-lg border border-green-200 focus:outline-none focus:ring focus:border-green-400 w-full md:w-64"
+            value={locationFilter}
+            onChange={e => setLocationFilter(e.target.value)}
+          >
+            <option value="">All Locations</option>
+            {availableLocations.map(loc => (
+              <option key={loc} value={loc}>{loc}</option>
+            ))}
+          </select>
         </motion.div>
 
         <motion.div

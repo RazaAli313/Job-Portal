@@ -7,17 +7,17 @@ import axios from 'axios';
 const SearchFilters = ({ searchTerm, setSearchTerm, filters, setFilters }) => {
   const [locations, setLocations] = React.useState([]);
 
-  React.useEffect(() => {
-    const token = localStorage.getItem('token');
-    axios.get('http://localhost:3000/api/locations', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(res => setLocations(res.data))
-      .catch(err => {
-        console.error('Error fetching locations:', err);
-        setLocations([]);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   axios.get('http://localhost:3000/api/locations', {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   })
+  //     .then(res => setLocations(res.data))
+  //     .catch(err => {
+  //       console.error('Error fetching locations:', err);
+  //       setLocations([]);
+  //     });
+  // }, []);
 
   const filterOptions = {
     type: ['Full-time', 'Part-time', 'Contract', 'Internship', 'Remote'],

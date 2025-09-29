@@ -24,14 +24,14 @@ const JobListings = ({ searchTerm, filters }) => {
     try {
       setLoading(true);
       setError('');
-      // const token = localStorage.getItem('token');
-      // console.log('Using token:', token);
+      const token = localStorage.getItem('token');
+      console.log('Using token:', token);
       const res = await axios.get('http://localhost:3000/api/jobs'
-      //   , {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`
-      //   }
-      // }
+        , {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
       setJobs(res.data);
   toast.success('Jobs loaded successfully!');

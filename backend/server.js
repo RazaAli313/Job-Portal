@@ -1,4 +1,14 @@
-const app=require('express')();
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:5173',
+        credentials: true
+    }
+});
 
 const {MONGO_URI}=require('./config/keys');
 const cors=require('cors');
@@ -42,7 +52,25 @@ app.use('/api/users', userRoutes);
 const chatRoutes = require('./routes/api/chat');
 app.use('/api/chat', chatRoutes);
 
-app.listen(PORT,()=>{
+
+// Socket.IO logic for real-time chat
+io.on('connection', (socket) => {
+    console.log('Socket connected:', socket.id);
+
+    socket.on('joinChat', (chatId) => {
+        socket.join(chatId);
+    });
+
+    socket.on('sendMessage', ({ chatId, message }) => {
+        io.to(chatId).emit('receiveMessage', message);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Socket disconnected:', socket.id);
+    });
+});
+
+server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
