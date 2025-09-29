@@ -8,9 +8,10 @@ import JobModal from '../components/JobModal';
 import Chat from '../components/Chat';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const categories = [
-  'Engineering', 'Design', 'Marketing', 'Sales', 'Product', 'Finance', 'HR', 'Operations', 'Support', 'Other'
-];
+// const categories = [
+//   'Engineering', 'Design', 'Marketing', 'Sales', 'Product', 'Finance', 'HR', 'Operations', 'Support', 'Other'
+// ];
+const categories = []
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -40,6 +41,7 @@ const Jobs = () => {
 
   // Filter jobs by category and search
   const filteredJobs = jobs.filter(job => {
+    // const matchesCategory = activeCategory === 'All' || job.category === activeCategory;
     const matchesCategory = activeCategory === 'All' || job.category === activeCategory;
     const matchesSearch = searchTerm === '' || job.title.toLowerCase().includes(searchTerm.toLowerCase()) || job.company?.name?.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
@@ -88,10 +90,10 @@ const Jobs = () => {
         >
           <h2 className="text-3xl font-extrabold text-indigo-700">Job Feed</h2>
           <div className="flex gap-2 flex-wrap">
-            <button
+            {/* <button
               className={`px-4 py-2 rounded-lg font-semibold transition-colors ${activeCategory === 'All' ? 'bg-indigo-600 text-white' : 'bg-white text-indigo-600 border border-indigo-200'}`}
               onClick={() => setActiveCategory('All')}
-            >All</button>
+            >All</button> */}
             {categories.map(cat => (
               <button
                 key={cat}
@@ -124,7 +126,7 @@ const Jobs = () => {
               <motion.div key={job._id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
                 <JobCard job={job} onSelect={handleJobSelect} />
                 {/* Comments Section */}
-                <div className="mt-4 bg-white rounded-xl shadow p-4">
+                {/* <div className="mt-4 bg-white rounded-xl shadow p-4">
                   <h4 className="font-semibold text-indigo-700 mb-2">Comments</h4>
                   <ul className="mb-2 space-y-2">
                     {(comments[job._id] || []).map((c, idx) => (
@@ -152,7 +154,7 @@ const Jobs = () => {
                     className="mt-2 text-indigo-500 hover:underline text-sm"
                     onClick={() => { setSelectedJob(job); setShowChat(true); setIsModalOpen(false); }}
                   >Open Chat</button>
-                </div>
+                </div> */}
               </motion.div>
             ))
           )}

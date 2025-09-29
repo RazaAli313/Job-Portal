@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
 
@@ -9,6 +11,7 @@ const Companies = () => {
   const [error, setError] = useState('');
   const [form, setForm] = useState({ name: '', description: '', website: '' });
   const [editing, setEditing] = useState(null);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     fetchCompanies();
@@ -16,8 +19,8 @@ const Companies = () => {
 
   const fetchCompanies = async () => {
     try {
-  const token = localStorage.getItem('token');
-  const res = await axios.get('http://localhost:3000/api/companies', { headers: { Authorization: `Bearer ${token}` } });
+      const token = localStorage.getItem('token');
+      const res = await axios.get('http://localhost:3000/api/companies', { headers: { Authorization: `Bearer ${token}` } });
       setCompanies(res.data);
     } catch (err) {
       setError('Failed to fetch companies');
@@ -26,7 +29,6 @@ const Companies = () => {
       setLoading(false);
     }
   };
-
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
@@ -73,39 +75,43 @@ const Companies = () => {
   if (loading) return <div>Loading companies...</div>;
   if (error) return <div className="text-red-600">{error}</div>;
 
+ 
+  const isEmployer = user?.role === 'employer';
   return (
     <div className="container mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6">Companies</h2>
-      <form onSubmit={editing ? handleUpdate : handleCreate} className="mb-8 space-y-4 max-w-md">
-        <input
-          type="text"
-          placeholder="Name"
-          className="border p-2 rounded w-full"
-          value={form.name}
-          onChange={e => setForm({ ...form, name: e.target.value })}
-          required
-        />
-        <textarea
-          placeholder="Description"
-          className="border p-2 rounded w-full"
-          value={form.description}
-          onChange={e => setForm({ ...form, description: e.target.value })}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Website"
-          className="border p-2 rounded w-full"
-          value={form.website}
-          onChange={e => setForm({ ...form, website: e.target.value })}
-        />
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">
-          {editing ? 'Update Company' : 'Create Company'}
-        </button>
-        {editing && (
-          <button className="ml-2 px-4 py-2 rounded bg-gray-300" type="button" onClick={() => { setEditing(null); setForm({ name: '', description: '', website: '' }); }}>Cancel</button>
-        )}
-      </form>
+      {isEmployer && (
+        <form onSubmit={editing ? handleUpdate : handleCreate} className="mb-8 space-y-4 max-w-md">
+          <input
+            type="text"
+            placeholder="Name"
+            className="border p-2 rounded w-full"
+            value={form.name}
+            onChange={e => setForm({ ...form, name: e.target.value })}
+            required
+          />
+          <textarea
+            placeholder="Description"
+            className="border p-2 rounded w-full"
+            value={form.description}
+            onChange={e => setForm({ ...form, description: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Website"
+            className="border p-2 rounded w-full"
+            value={form.website}
+            onChange={e => setForm({ ...form, website: e.target.value })}
+          />
+          <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">
+            {editing ? 'Update Company' : 'Create Company'}
+          </button>
+          {editing && (
+            <button className="ml-2 px-4 py-2 rounded bg-gray-300" type="button" onClick={() => { setEditing(null); setForm({ name: '', description: '', website: '' }); }}>Cancel</button>
+          )}
+        </form>
+      )}
       {Array.isArray(companies) && companies.length > 0 ? (
         <ul className="space-y-4">
           {companies.map(company => (
@@ -117,10 +123,12 @@ const Companies = () => {
                   <a href={company.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">Visit Website</a>
                 )}
               </div>
-              <div className="flex gap-2">
-                <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => handleEdit(company)}>Edit</button>
-                <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleDelete(company._id)}>Delete</button>
-              </div>
+              {isEmployer ? (
+                <div className="flex gap-2">
+                  <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => handleEdit(company)}>Edit</button>
+                  <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleDelete(company._id)}>Delete</button>
+                </div>
+              ) : null}
             </li>
           ))}
         </ul>

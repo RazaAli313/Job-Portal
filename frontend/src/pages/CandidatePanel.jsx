@@ -54,8 +54,8 @@ const CandidatePanel = () => {
   // Apply for a job
   const handleApply = async (jobId) => {
     try {
-  const token = localStorage.getItem('token');
-  await axios.post('http://localhost:3000/api/applications', { jobId }, { headers: { Authorization: `Bearer ${token}` } });
+      const token = localStorage.getItem('token');
+      await axios.post('http://localhost:3000/api/applications', { job: jobId }, { headers: { Authorization: `Bearer ${token}` } });
       toast.success('Applied successfully!');
       fetchApplications();
     } catch (err) {
@@ -112,7 +112,7 @@ const CandidatePanel = () => {
           )}
         </div>
 
-        <div>
+        {/* <div>
           <h3 className="text-xl font-semibold mb-4">My Applications</h3>
           {applications.length === 0 ? (
             <p>No applications yet.</p>
@@ -128,7 +128,7 @@ const CandidatePanel = () => {
               ))}
             </ul>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

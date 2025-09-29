@@ -21,7 +21,7 @@ const SearchFilters = ({ searchTerm, setSearchTerm, filters, setFilters }) => {
 
   const filterOptions = {
     type: ['Full-time', 'Part-time', 'Contract', 'Internship', 'Remote'],
-    location: locations,
+    // location: locations,
     experience: ['Entry', 'Mid', 'Senior', 'Executive']
   };
 

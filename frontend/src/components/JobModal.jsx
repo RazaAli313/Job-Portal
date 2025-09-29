@@ -165,7 +165,7 @@ const JobModal = ({ job, isOpen, onClose }) => {
             <div className="p-8 max-h-[60vh] overflow-y-auto">
               {/* Navigation Tabs */}
               <div className="flex border-b border-gray-200 mb-6">
-                {['description', 'requirements', 'company'].map((tab) => (
+                {['description', 'company'].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
@@ -210,7 +210,7 @@ const JobModal = ({ job, isOpen, onClose }) => {
                     </div>
                   )}
 
-                  {activeTab === 'requirements' && (
+                  {/* {activeTab === 'requirements' && (
                     <div>
                       <h3 className="text-xl font-semibold mb-4">Requirements</h3>
                       <ul className="space-y-3">
@@ -240,7 +240,7 @@ const JobModal = ({ job, isOpen, onClose }) => {
                         </div>
                       )}
                     </div>
-                  )}
+                  )} */}
 
                   {activeTab === 'company' && (
                     <div>

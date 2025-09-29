@@ -15,9 +15,9 @@ const UserSearchBar = ({ onUserSelect }) => {
     setLoading(true);
     setError('');
     try {
-      // const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       const res = await axios.get(`http://localhost:3000/api/users?search=${query}`,
-        // { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setResults(res.data);
     } catch (err) {
@@ -47,7 +47,7 @@ const UserSearchBar = ({ onUserSelect }) => {
             <span>{user.name} ({user.email})</span>
             <div className="flex gap-2">
               <button className="px-2 py-1 bg-blue-600 text-white rounded" onClick={() => navigate(`/profile/${user._id}`)}>View Profile</button>
-              <button className="px-2 py-1 bg-green-600 text-white rounded" onClick={() => onUserSelect(user)}>Message</button>
+              <button type="button" className="px-2 py-1 bg-green-600 text-white rounded" onClick={() => onUserSelect(user)}>Message</button>
             </div>
           </li>
         ))}

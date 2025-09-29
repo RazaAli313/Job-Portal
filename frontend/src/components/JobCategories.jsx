@@ -4,80 +4,81 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Users, TrendingUp } from 'lucide-react';
 
 const JobCategories = () => {
-  const categories = [
-    { 
-      name: "Technology", 
-      icon: "💻", 
-      jobs: "1,240",
-      growth: "+15%",
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-700"
-    },
-    { 
-      name: "Healthcare", 
-      icon: "🏥", 
-      jobs: "862",
-      growth: "+22%",
-      color: "from-emerald-500 to-green-500",
-      bgColor: "bg-emerald-50",
-      textColor: "text-emerald-700"
-    },
-    { 
-      name: "Finance", 
-      icon: "💰", 
-      jobs: "945",
-      growth: "+18%",
-      color: "from-amber-500 to-yellow-500",
-      bgColor: "bg-amber-50",
-      textColor: "text-amber-700"
-    },
-    { 
-      name: "Education", 
-      icon: "🎓", 
-      jobs: "732",
-      growth: "+12%",
-      color: "from-purple-500 to-indigo-500",
-      bgColor: "bg-purple-50",
-      textColor: "text-purple-700"
-    },
-    { 
-      name: "Marketing", 
-      icon: "📊", 
-      jobs: "563",
-      growth: "+25%",
-      color: "from-pink-500 to-rose-500",
-      bgColor: "bg-pink-50",
-      textColor: "text-pink-700"
-    },
-    { 
-      name: "Design", 
-      icon: "🎨", 
-      jobs: "421",
-      growth: "+20%",
-      color: "from-violet-500 to-purple-500",
-      bgColor: "bg-violet-50",
-      textColor: "text-violet-700"
-    },
-    { 
-      name: "Engineering", 
-      icon: "⚙️", 
-      jobs: "689",
-      growth: "+16%",
-      color: "from-orange-500 to-red-500",
-      bgColor: "bg-orange-50",
-      textColor: "text-orange-700"
-    },
-    { 
-      name: "Sales", 
-      icon: "📈", 
-      jobs: "512",
-      growth: "+30%",
-      color: "from-teal-500 to-cyan-500",
-      bgColor: "bg-teal-50",
-      textColor: "text-teal-700"
-    }
-  ];
+  const categories = []
+  // const categories = [
+  //   { 
+  //     name: "Technology", 
+  //     icon: "💻", 
+  //     jobs: "1,240",
+  //     growth: "+15%",
+  //     color: "from-blue-500 to-cyan-500",
+  //     bgColor: "bg-blue-50",
+  //     textColor: "text-blue-700"
+  //   },
+  //   { 
+  //     name: "Healthcare", 
+  //     icon: "🏥", 
+  //     jobs: "862",
+  //     growth: "+22%",
+  //     color: "from-emerald-500 to-green-500",
+  //     bgColor: "bg-emerald-50",
+  //     textColor: "text-emerald-700"
+  //   },
+  //   { 
+  //     name: "Finance", 
+  //     icon: "💰", 
+  //     jobs: "945",
+  //     growth: "+18%",
+  //     color: "from-amber-500 to-yellow-500",
+  //     bgColor: "bg-amber-50",
+  //     textColor: "text-amber-700"
+  //   },
+  //   { 
+  //     name: "Education", 
+  //     icon: "🎓", 
+  //     jobs: "732",
+  //     growth: "+12%",
+  //     color: "from-purple-500 to-indigo-500",
+  //     bgColor: "bg-purple-50",
+  //     textColor: "text-purple-700"
+  //   },
+  //   { 
+  //     name: "Marketing", 
+  //     icon: "📊", 
+  //     jobs: "563",
+  //     growth: "+25%",
+  //     color: "from-pink-500 to-rose-500",
+  //     bgColor: "bg-pink-50",
+  //     textColor: "text-pink-700"
+  //   },
+  //   { 
+  //     name: "Design", 
+  //     icon: "🎨", 
+  //     jobs: "421",
+  //     growth: "+20%",
+  //     color: "from-violet-500 to-purple-500",
+  //     bgColor: "bg-violet-50",
+  //     textColor: "text-violet-700"
+  //   },
+  //   { 
+  //     name: "Engineering", 
+  //     icon: "⚙️", 
+  //     jobs: "689",
+  //     growth: "+16%",
+  //     color: "from-orange-500 to-red-500",
+  //     bgColor: "bg-orange-50",
+  //     textColor: "text-orange-700"
+  //   },
+  //   { 
+  //     name: "Sales", 
+  //     icon: "📈", 
+  //     jobs: "512",
+  //     growth: "+30%",
+  //     color: "from-teal-500 to-cyan-500",
+  //     bgColor: "bg-teal-50",
+  //     textColor: "text-teal-700"
+  //   }
+  // ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -107,7 +108,7 @@ const JobCategories = () => {
     <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header Section */}
-        <motion.div 
+        {/* <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -124,7 +125,7 @@ const JobCategories = () => {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover your perfect role across various industries and specialties
           </p>
-        </motion.div>
+        </motion.div> */}
 
         {/* Categories Grid */}
         <motion.div
@@ -199,7 +200,7 @@ const JobCategories = () => {
           transition={{ delay: 0.4, duration: 0.6 }}
           className="text-center mt-12"
         >
-          <motion.button
+          {/* <motion.button
             whileHover={{ 
               scale: 1.05,
               boxShadow: "0 20px 40px rgba(99, 102, 241, 0.15)"
@@ -209,7 +210,7 @@ const JobCategories = () => {
           >
             <span>View All Categories</span>
             <ArrowRight size={20} />
-          </motion.button>
+          </motion.button> */}
         </motion.div>
       </div>
     </section>

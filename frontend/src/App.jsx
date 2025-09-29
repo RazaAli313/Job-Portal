@@ -117,6 +117,15 @@ const App = () => {
               </ErrorBoundary>
             </ProtectedRoute>
           } />
+          <Route path="/profile/:id" element={
+            <ProtectedRoute roles={['admin', 'employer', 'candidate']}>
+              <ErrorBoundary>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Profile />
+                </Suspense>
+              </ErrorBoundary>
+            </ProtectedRoute>
+          } />
           {/* <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} /> */}
         </Routes>

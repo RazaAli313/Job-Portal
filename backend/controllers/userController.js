@@ -1,3 +1,27 @@
+// Update user profile
+exports.updateProfile = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { name, email, company, role, image, education, experience, password } = req.body;
+    const updateData = { name, email, role, image, education, experience };
+    // Only set company if it's a valid ObjectId
+    if (company && company.match(/^[0-9a-fA-F]{24}$/)) {
+      updateData.company = company;
+    } else {
+      updateData.company = undefined;
+    }
+    if (password) updateData.password = password;
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      updateData,
+      { new: true }
+    ).select('-password');
+    res.json(updatedUser);
+  } catch (err) {
+    console.error('Error updating profile:', err);
+    res.status(500).json({ error: 'Profile update failed' });
+  }
+};
 const User = require('../models/User');
 
 // Get all users

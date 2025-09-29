@@ -87,14 +87,14 @@ const Header = () => {
             <>
               <span className="px-2 text-gray-700 whitespace-nowrap">Hello, {user.name}</span>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/dashboard" className="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">Dashboard</Link>
+                <Link to={user?.role === 'admin' ? '/admin' : user?.role === 'employer' ? '/employer' : '/candidate'} className="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">Dashboard</Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/profile" className="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">Profile</Link>
+                <Link to={user ? `/profile/${user._id}` : "/profile"} className="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">Profile</Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link to="/chat" className="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">Chat</Link>
-              </motion.div>
+              </motion.div> */}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
