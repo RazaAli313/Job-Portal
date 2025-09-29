@@ -1,3 +1,21 @@
+// Get applications received for jobs posted by the logged-in employer
+const Job = require('../models/Job');
+exports.getReceivedApplications = async (req, res) => {
+  try {
+    console.log('getReceivedApplications: req.user:', req.user);
+    // Find jobs posted by this employer
+    const jobs = await Job.find({ postedBy: req.user.id }).select('_id');
+    console.log('getReceivedApplications: jobs found:', jobs);
+    const jobIds = jobs.map(j => j._id);
+    // Find applications for those jobs
+    const applications = await Application.find({ job: { $in: jobIds } }).populate('job candidate');
+    console.log('getReceivedApplications: applications found:', applications);
+    res.json(applications);
+  } catch (err) {
+    console.error('getReceivedApplications error:', err);
+    res.status(500).json({ message: err.message });
+  }
+};
 const Application = require('../models/Application');
 
 exports.createApplication = async (req, res) => {

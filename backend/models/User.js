@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ['admin', 'employer', 'candidate'], default: 'candidate' },
   company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' }, // for employers
+  image: { type: String },
+  education: { type: String },
+  experience: { type: String },
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

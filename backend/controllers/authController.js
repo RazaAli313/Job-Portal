@@ -12,7 +12,19 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     let userData = { name, email, password: hashedPassword, role };
     if (role === 'employer' && company && company !== '') {
-      userData.company = company;
+      // If company is not a valid ObjectId, create a new Company
+      const mongoose = require('mongoose');
+      if (!mongoose.Types.ObjectId.isValid(company)) {
+        const Company = require('../models/Company');
+        let existingCompany = await Company.findOne({ name: company });
+        if (!existingCompany) {
+          existingCompany = new Company({ name: company });
+          await existingCompany.save();
+        }
+        userData.company = existingCompany._id;
+      } else {
+        userData.company = company;
+      }
     }
     const user = new User(userData);
     await user.save();

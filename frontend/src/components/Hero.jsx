@@ -1,8 +1,10 @@
 // components/Hero.js
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate=useNavigate();
   return (
     <motion.section 
       initial={{ opacity: 0 }}
@@ -37,13 +39,16 @@ const Hero = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-3 bg-white text-indigo-600 font-semibold rounded-lg shadow-md hover:shadow-lg transition-shadow"
-          >
+            onClick={() => navigate('/jobs')}
+         
+         >
             Find Jobs
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-indigo-600 transition-colors"
+            onClick={() => navigate('/employer')}
           >
             Post a Job
           </motion.button>

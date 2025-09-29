@@ -16,8 +16,10 @@ const Register = () => {
     e.preventDefault();
     setError('');
     try {
-      await register(name, email, password, role, company);
-      navigate('/dashboard');
+  await register(name, email, password, role, company);
+  if (role === 'admin') navigate('/admin');
+  else if (role === 'employer') navigate('/employer');
+  else navigate('/candidate');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     }

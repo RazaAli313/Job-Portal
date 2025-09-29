@@ -19,12 +19,18 @@ import JobDetails from './pages/JobDetails';
 import Applications from './pages/Applications';
 
 import Jobs from './pages/Jobs';
+import Chat from './components/Chat';
+// (removed ChatPage import)
 import Companies from './pages/Companies';
-import Contact from './pages/Contact';
-import About from './pages/About';
+
+import  { lazy, Suspense } from 'react';
+const Profile = lazy(() => import('./pages/Profile.jsx'));
+
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -41,6 +47,7 @@ const App = () => {
     <AuthProvider>
       <Router>
         <Header />
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
         <Routes>
           <Route path="/" element={
             <>
@@ -54,13 +61,13 @@ const App = () => {
                     setFilters={setFilters}
                   />
                 </ErrorBoundary>
-                <JobCategories />
                 <ErrorBoundary>
                   <JobListings 
                     searchTerm={searchTerm}
                     filters={filters}
                   />
                 </ErrorBoundary>
+                <JobCategories />
               </div>
               <Footer />
             </>
@@ -87,6 +94,11 @@ const App = () => {
               <CandidatePanel />
             </ProtectedRoute>
           } />
+          <Route path="/chat" element={
+            <ProtectedRoute roles={['employer','candidate']}>
+              <Chat />
+            </ProtectedRoute>
+          } />
           <Route path="/job/:id" element={<JobDetails />} />
           <Route path="/applications" element={
             <ProtectedRoute roles={['admin', 'employer', 'candidate']}>
@@ -95,8 +107,27 @@ const App = () => {
           } />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/companies" element={<Companies />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
+          {/* ChatPage route removed, chat now integrated in jobs feed */}
+          <Route path="/profile" element={
+            <ProtectedRoute roles={['admin', 'employer', 'candidate']}>
+              <ErrorBoundary>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Profile />
+                </Suspense>
+              </ErrorBoundary>
+            </ProtectedRoute>
+          } />
+          <Route path="/profile/:id" element={
+            <ProtectedRoute roles={['admin', 'employer', 'candidate']}>
+              <ErrorBoundary>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Profile />
+                </Suspense>
+              </ErrorBoundary>
+            </ProtectedRoute>
+          } />
+          {/* <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} /> */}
         </Routes>
       </Router>
     </AuthProvider>
