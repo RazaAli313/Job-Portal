@@ -16,7 +16,7 @@ const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 require('dotenv').config();
 
-const PORT=process.env.PORT || 5000;
+const PORT=process.env.PORT || 5000 ||8000;
 
 //import routes
 const authRoutes = require('./routes/api/auth');
